@@ -1,0 +1,10 @@
+{
+    "elements": {
+        "c:foreach": {}
+    },
+    "attributes": {
+        "href": {
+            "context": "img"
+        }
+    }
+}

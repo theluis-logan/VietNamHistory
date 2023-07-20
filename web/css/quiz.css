@@ -1,0 +1,82 @@
+#quiz{
+    margin-top: 10rem;
+    display: flex ;
+    justify-content: space-between ;
+    align-items: flex-start !important;
+    min-height: 100vh;
+    padding: 0 1rem ;
+}
+
+.right{
+    align-items: center ;
+    width: 65%;
+    text-align: center;
+}
+
+.form--label,
+.form--text,
+.font--input{
+    font-size: 1.8rem ;
+}
+
+.form--input{
+    border: none ;
+    border-bottom: .15rem solid #2e2e2e ;
+}
+
+.form--input:focus{
+    outline:none ;
+}
+
+.form--btn{
+    background-color: #2e2e2e ;
+    width: auto ;
+    height: 50px ;
+    color: #fafafa;
+    padding: .5rem 1rem;
+    margin-bottom: 10px ;
+    border-radius: 25px ;
+    border: 2.5px solid white ;
+    cursor: pointer ;
+}
+
+.form--test__card{
+    display: block ;
+    width: 100% ;
+    height: auto ;
+    text-align: justify ;
+    border-radius: .5rem;
+    box-shadow: 0 .2rem 1.5rem 0px rgba(0 , 0 , 0 , .3);
+    padding: 1rem;
+    margin-bottom: 2rem;
+}
+
+.test--card__question{
+    display: block ;
+    padding: 1rem ;
+    font-size: 1.8rem;
+}
+
+.test--card__label{
+    display: inline-block;
+    margin-left: 1rem;
+}
+
+
+.quiz--right__title{
+    text-align: left;
+    font-size: 3rem;
+    font-weight: 800 ;
+    margin-bottom: 5rem ;
+}
+.quiz--right__title::after{
+    content: '' ;
+    display: block ;
+    width: 100% ;
+    height: .15rem ;
+    background-color: #2e2e2e;
+    margin-bottom: 1rem;
+}
+
+
+
