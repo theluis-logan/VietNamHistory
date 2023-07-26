@@ -11,16 +11,17 @@
             </div>
         </c:forEach>
     </div>
-    <div id="ranking">
-        <p class="home--left__title">CURRENT RANKING</p>
-        <c:forEach items="${accList}" var="o">
-            <div class="ranking--user">
-                <p class="ranking--user__current">${o.rank}.</p>
-                <p class="ranking--user__name">${o.username}</p>
-                <p class="ranking--user__score">${o.score}</p>
-            </div>
-            <div class="ranking--line"></div>
-        </c:forEach>
-    </div>
-
+    <c:if test="${sessionScope.account != null}">
+        <div id="ranking">
+            <p class="home--left__title">CURRENT RANKING</p>
+            <c:forEach items="${accList}" var="o">
+                <div class="ranking--user">
+                    <p class="ranking--user__current">${o.rank}.</p>
+                    <p class="ranking--user__name">${o.username}</p>
+                    <p class="ranking--user__score">${o.score}</p>
+                </div>
+                <div class="ranking--line"></div>
+            </c:forEach>
+        </div>
+    </c:if>
 </div>

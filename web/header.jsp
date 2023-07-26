@@ -9,6 +9,12 @@
                     <c:if test="${sessionScope.account != null}">
                     <li class="nav--menu__item"><a href="quiz" class="nav--menu__link">Quiz</a></li>
                     </c:if>
+                    <c:if test="${sessionScope.account.role > 1}">
+                    <li class="nav--menu__item"><a href="addPost.jsp" class="nav--menu__link">Add Post</a></li>
+                    </c:if>
+                    <c:if test="${sessionScope.account.role > 2}">
+                    <li class="nav--menu__item"><a href="quiz" class="nav--menu__link">Dashboard</a></li>
+                    </c:if>
             </ul>
         </div>
         <div class="header--right">
@@ -40,7 +46,7 @@
                     </c:when>
                     <c:otherwise>
                         <li class="user--menu__item">
-                            <a href="logout" class="user--menu__link">
+                            <a href="logout?accId=${sessionScope.account.id}" class="user--menu__link">
                                 Sign out
                             </a>
                         </li>

@@ -12,6 +12,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.account.AccountDAO;
+import model.account.AccountDTO;
 
 /**
  *
@@ -33,7 +36,12 @@ public class UpdateScoreControl extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            
+            String aId = request.getParameter("accountId");
+            int newScore = Integer.parseInt(request.getParameter("accountScore"));
+
+            AccountDAO accDao = new AccountDAO() ;
+            accDao.updateScore(aId, newScore);
+            out.write("Your score has been updated!");
         }
     }
 

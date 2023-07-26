@@ -26,10 +26,11 @@ public class PostDTO {
         this.content = content;
         this.categoryId = categoryId;
         this.markerId = markerId;
+        this.description = content.substring(0, 200) + "...";
     }
 
     public String getDescription() {
-        return content.substring(0, 200) + "...";
+        return description ;
     }
 
     public void setDescription(String description) {

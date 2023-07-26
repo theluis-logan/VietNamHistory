@@ -18,52 +18,49 @@
         <link href="css/reset.css" rel="stylesheet" type="text/css"/>
         <link href="css/header.css" rel="stylesheet" type="text/css"/>
         <link href="css/home.css" rel="stylesheet" type="text/css"/>
+        <link href="css/paging.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         <jsp:include page="header.jsp"></jsp:include>
             <div id="home" class="container">
             <jsp:include page="left.jsp"></jsp:include>
-            <div class="line"></div>
-            <div id="home--right">
-                <p class="home--right__title">VIET NAM HISTORY</p>
-                <c:if test="${post!=null}">
-                    <div class="post--detail">
-                        <br>
-                        <br>
-                        <div class="post--title">
-                            ${post.title}
-                        </div>
-                        <br>
-                        <br>
-                        <div class="post--image">
-                            <img src="img/${post.id}.jpg" alt=""/>
-                        </div>
-                        <br>
-                        <br>
-                        <div class="post--content">
-                            ${post.content}
-                        </div>
-                        <div class="post--comment">
-                            
-                        </div>
-                    </div>
-                </c:if>
-                <c:forEach items="${postList}" var="item">
-                    <div class="home--right__card">
-                        <div class="home--card__left">
-                            <img src="img/${item.id}.jpg" alt=""/>
-                        </div>
-                        <div class="home--card__right">
-                            <p class="card--right__title"><a href="post?pi=${item.id}">${item.title}</a></p>
-                            <p class="card--right__description">${item.description}</p>
-                        </div>
-                    </div>
-                </c:forEach>
+                <div class="line"></div>
+                <div id="home--right">
+                    <p class="home--right__title">VIET NAM HISTORY</p>
+                <div id="post--card__list"></div>
+                <div id="paging"></div>
             </div>
+
+
         </div>
+        <jsp:include page="footer.jsp"></jsp:include>
 
+            <script>
+                var postList = ${postListJson};
 
-        <script>
+                const paging = document.getElementById("paging");
+                for (var i = 1; i <= (postList.length) / 10 + 1; i++) {
+                    paging.innerHTML += "<button onclick=\"loadPage(" + i + ")\" class=\"paging--button\">" + i + "</button>";
+                }
+
+                function loadPage(page) {
+                    const postCardList = document.getElementById("post--card__list");
+                    postCardList.innerHTML = "" ;
+                    for (var i = page * 10 - 10; i < page * 10; i++) {
+                        const postCard = "<div class=\"home--right__card\">\n" +
+                                "                                            <div class=\"home--card__left\">\n" +
+                                "                                                <img src=\"img/" + postList[i].id + ".jpg\" alt=\"\"/>\n" +
+                                "                                            </div>\n" +
+                                "                                            <div class=\"home--card__right\">\n" +
+                                "                                                <p class=\"card--right__title\"><a href=\"post?pi=" + postList[i].id + "\">" + postList[i].title + "</a></p>\n" +
+                                "                                                <p class=\"card--right__description\">" + postList[i].description + "</p>\n" +
+                                "                                            </div>\n" +
+                                "                                        </div>";
+                        postCardList.innerHTML += postCard;
+                    }
+                }
+
+                loadPage(1);
         </script>
     </body>
 </html>

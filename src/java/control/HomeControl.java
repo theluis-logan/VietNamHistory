@@ -5,6 +5,7 @@
  */
 package control;
 
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -46,8 +47,12 @@ public class HomeControl extends HttpServlet {
             List<PostDTO> postList = postDAO.getAllPost() ;
             CategoryDAO cateDAO = new CategoryDAO();
             List<CategoryDTO> cateList = cateDAO.getAllCategory();
+            
+            Gson gson = new Gson() ;
+            String postListJson = gson.toJson(postList) ;
             request.setAttribute("cateList", cateList);
             request.setAttribute("postList", postList);
+            request.setAttribute("postListJson", postListJson);
             request.setAttribute("accList", accList);
             request.getRequestDispatcher("home.jsp").forward(request, response);
         }

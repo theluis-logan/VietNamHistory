@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.account.AccountDAO;
 import model.account.AccountDTO;
+import model.category.CategoryDAO;
+import model.category.CategoryDTO;
 import model.post.PostDAO;
 import model.post.PostDTO;
 
@@ -39,13 +41,16 @@ public class PostControl extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             String _id = request.getParameter("pi");
+            CategoryDAO cateDAO = new CategoryDAO();
+            List<CategoryDTO> cateList = cateDAO.getAllCategory();
             AccountDAO accDAO = new AccountDAO();
             List<AccountDTO> accList = accDAO.getTopScoreAccount();
             PostDAO postDAO = new PostDAO() ;
             PostDTO post = postDAO.getPost(_id);
             request.setAttribute("accList", accList);
+            request.setAttribute("cateList", cateList);
             request.setAttribute("post", post);
-            request.getRequestDispatcher("home.jsp").forward(request, response);
+            request.getRequestDispatcher("postdetail.jsp").forward(request, response);
         }
     }
 

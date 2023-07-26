@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.account.AccountDAO;
 
 /**
  *
@@ -37,6 +38,9 @@ public class LogoutControl extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
             session.removeAttribute("account");
+            String accid = request.getParameter("accId");
+            AccountDAO dao = new AccountDAO();
+            dao.updateStatus(accid, 0);
             request.getRequestDispatcher("home").forward(request, response);
         }
     }

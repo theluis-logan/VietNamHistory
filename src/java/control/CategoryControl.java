@@ -5,6 +5,7 @@
  */
 package control;
 
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -47,6 +48,10 @@ public class CategoryControl extends HttpServlet {
             List<CategoryDTO> cateList = cateDAO.getAllCategory();
             PostDAO postDAO = new PostDAO() ;
             List<PostDTO> postList = postDAO.getPostByCategory(cid);
+            
+            Gson gson = new Gson() ;
+            String postListJson = gson.toJson(postList) ;
+            request.setAttribute("postListJson", postListJson);
             request.setAttribute("cid", cid);
             request.setAttribute("cateList", cateList);
             request.setAttribute("postList", postList);

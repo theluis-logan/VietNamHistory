@@ -5,6 +5,7 @@
  */
 package control;
 
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -34,34 +35,45 @@ public class LoadQuizControl extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+//        response.setContentType("text/html;charset=UTF-8");
+//        try (PrintWriter out = response.getWriter()) {
+//            int num = Integer.parseInt(request.getParameter("numOfQuestion"));
+//            QuizDAO dao = new QuizDAO();
+//            List<QuizDTO> quizList = dao.getQuiz(num);
+//            int count = 1;
+//            for (QuizDTO quiz : quizList) {
+//                out.print("<form id=\"" + count + "\"class=\"form--test__card\" qa=\"" + quiz.getCorrect() + "\">\n"
+//                        + "                        <p class=\"test--card__question\">" + quiz.getQuestion() + "</p>\n"
+//                        + "                        <div class=\"test--card__answer\">\n"
+//                        + "                            <input id=\"ans1" + count + "\" name=\"" + count + "\" type=\"radio\" value=\"1\">\n"
+//                        + "                            <label for=\"ans1" + count + "\" class=\"test--card__label\">A." + quiz.getAnswerA() + "</label>\n"
+//                        + "                        </div>\n"
+//                        + "                        <div class=\"test--card__answer\">\n"
+//                        + "                            <input id=\"ans2" + count + "\" name=\"" + count + "\" type=\"radio\" value=\"2\">\n"
+//                        + "                            <label for=\"ans2" + count + "\" class=\"test--card__label\">B." + quiz.getAnswerB() + "</label>\n"
+//                        + "                        </div>\n"
+//                        + "                        <div class=\"test--card__answer\">\n"
+//                        + "                            <input id=\"ans3" + count + "\" name=\"" + count + "\" type=\"radio\" value=\"3\">\n"
+//                        + "                            <label for=\"ans3" + count + "\" class=\"test--card__label\">C." + quiz.getAnswerC() + "</label>\n"
+//                        + "                        </div>\n"
+//                        + "                        <div class=\"test--card__answer\">\n"
+//                        + "                            <input id=\"ans4" + count + "\" name=\"" + count + "\" type=\"radio\" value=\"4\">\n"
+//                        + "                            <label for=\"ans4" + count + "\" class=\"test--card__label\">D." + quiz.getAnswerD() + "</label>\n"
+//                        + "                        </div>\n"
+//                        + "                    </form>");
+//                count++;
+//            }
+//        }
+
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
         try (PrintWriter out = response.getWriter()) {
             int num = Integer.parseInt(request.getParameter("numOfQuestion"));
             QuizDAO dao = new QuizDAO();
             List<QuizDTO> quizList = dao.getQuiz(num);
-            int count = 1;
-            for (QuizDTO quiz : quizList) {
-                out.print("<form id=\"" + count + "\"class=\"form--test__card\" qa=\"" + quiz.getCorrect() + "\">\n"
-                        + "                        <p class=\"test--card__question\">" + quiz.getQuestion() + "</p>\n"
-                        + "                        <div class=\"test--card__answer\">\n"
-                        + "                            <input id=\"ans1" + count + "\" name=\"" + count + "\" type=\"radio\" value=\"1\">\n"
-                        + "                            <label for=\"ans1" + count + "\" class=\"test--card__label\">A." + quiz.getAnswerA() + "</label>\n"
-                        + "                        </div>\n"
-                        + "                        <div class=\"test--card__answer\">\n"
-                        + "                            <input id=\"ans2" + count + "\" name=\"" + count + "\" type=\"radio\" value=\"2\">\n"
-                        + "                            <label for=\"ans2" + count + "\" class=\"test--card__label\">B." + quiz.getAnswerB() + "</label>\n"
-                        + "                        </div>\n"
-                        + "                        <div class=\"test--card__answer\">\n"
-                        + "                            <input id=\"ans3" + count + "\" name=\"" + count + "\" type=\"radio\" value=\"3\">\n"
-                        + "                            <label for=\"ans3" + count + "\" class=\"test--card__label\">C." + quiz.getAnswerC() + "</label>\n"
-                        + "                        </div>\n"
-                        + "                        <div class=\"test--card__answer\">\n"
-                        + "                            <input id=\"ans4" + count + "\" name=\"" + count + "\" type=\"radio\" value=\"4\">\n"
-                        + "                            <label for=\"ans4" + count + "\" class=\"test--card__label\">D." + quiz.getAnswerD() + "</label>\n"
-                        + "                        </div>\n"
-                        + "                    </form>");
-                count++;
-            }
+            Gson gson = new Gson();
+            String jsonData = gson.toJson(quizList);
+            out.write(jsonData);
         }
     }
 

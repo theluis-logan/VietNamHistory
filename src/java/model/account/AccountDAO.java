@@ -20,17 +20,35 @@ import java.util.logging.Logger;
  * @author NguyenTheAnh
  */
 public class AccountDAO {
-    
-    public void updateScore(String account_id , int score){
+
+    public void updateScore(String account_id, int score) {
         Connection con = null;
         PreparedStatement stm = null;
         ResultSet rs = null;
         try {
             con = DBContext.getConnection();
-            String sql = "SELECT * FROM Users WHERE email = ? AND password = ?";
-            stm = con.prepareStatement(sql);
+            String updateScoreSql = "update Users\n"
+                    + "set score = ?\n"
+                    + "where id = ?";
+            stm = con.prepareStatement(updateScoreSql);
+            stm.setInt(1, score);
+            stm.setString(2, account_id);
+            stm.executeUpdate();
 
-            rs = stm.executeQuery();
+            String updateRankSql = "WITH RankedUsers AS (\n"
+                    + "    SELECT\n"
+                    + "        id,\n"
+                    + "        ROW_NUMBER() OVER (ORDER BY Score DESC) AS Rank\n"
+                    + "    FROM\n"
+                    + "        Users\n"
+                    + ")\n"
+                    + "UPDATE U\n"
+                    + "SET U.Rank = R.Rank\n"
+                    + "FROM\n"
+                    + "    Users U\n"
+                    + "JOIN RankedUsers R ON U.id = R.id;";
+            stm = con.prepareStatement(updateRankSql);
+            stm.executeUpdate() ;
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
@@ -66,6 +84,24 @@ public class AccountDAO {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+    
+    public void updateStatus(String accId , int status){
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            con = DBContext.getConnection();
+            String sql = "update Users set status = ? where id = ?";
+            stm = con.prepareStatement(sql);
+            stm.setInt(1, status);
+            stm.setString(2, accId);
+            stm.executeUpdate();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public List<AccountDTO> getAllAccount() {
@@ -109,11 +145,11 @@ public class AccountDAO {
             String username = "user" + Integer.toString(accNumber + 1);
             String sql = "insert into Users (username , email , [password] , role_id , score , [rank] , [status]) \n"
                     + "values (?,?,?,1,0,0,1)";
-            stm = con.prepareStatement(sql) ;
+            stm = con.prepareStatement(sql);
             stm.setString(1, username);
             stm.setString(2, _email);
             stm.setString(3, _password);
-            stm.executeUpdate() ;
+            stm.executeUpdate();
             return this.checkLogin(_email, _password);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -122,14 +158,14 @@ public class AccountDAO {
         }
         return null;
     }
-    
-    public List<AccountDTO> getTopScoreAccount(){
+
+    public List<AccountDTO> getTopScoreAccount() {
         Connection con = null;
         PreparedStatement stm = null;
         ResultSet rs = null;
         try {
             con = DBContext.getConnection();
-            String sql = "SELECT TOP(10) * FROM Users ORDER BY score DESC";
+            String sql = "SELECT TOP(10) * FROM Users ORDER BY rank";
             stm = con.prepareStatement(sql);
             rs = stm.executeQuery();
             List<AccountDTO> list = new ArrayList<>();
@@ -156,9 +192,6 @@ public class AccountDAO {
 
     public static void main(String[] args) {
         AccountDAO dao = new AccountDAO();
-        List<AccountDTO> list = dao.getTopScoreAccount() ;
-        for(AccountDTO account : list){
-            System.out.println(account);
-        }
+        dao.updateScore("7", 0);
     }
 }

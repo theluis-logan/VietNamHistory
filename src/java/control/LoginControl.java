@@ -38,6 +38,7 @@ public class LoginControl extends HttpServlet {
             String pass = request.getParameter("password") ;
             AccountDAO dao = new AccountDAO() ;
             AccountDTO account = dao.checkLogin(email, pass);
+            dao.updateStatus(Integer.toString(account.getId()), 1);
             if(account == null){
                 String errorMsg = "Wrong username or password" ;
                 request.setAttribute("msg", errorMsg);

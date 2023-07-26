@@ -5,15 +5,15 @@
         <group>
             <file>file:/C:/Users/NguyenTheAnh/Desktop/VNH/src/java/control/LoadQuizControl.java</file>
             <file>file:/C:/Users/NguyenTheAnh/Desktop/VNH/web/home.jsp</file>
-            <file>file:/C:/Users/NguyenTheAnh/Desktop/VNH/src/java/control/QuizControl.java</file>
-            <file>file:/C:/Users/NguyenTheAnh/Desktop/VNH/src/java/model/account/AccountDAO.java</file>
-            <file>file:/C:/Users/NguyenTheAnh/Desktop/VNH/src/java/model/quiz/QuizDAO.java</file>
+            <file>file:/C:/Users/NguyenTheAnh/Desktop/VNH/web/left.jsp</file>
+            <file>file:/C:/Users/NguyenTheAnh/Desktop/VNH/web/footer.jsp</file>
             <file>file:/C:/Users/NguyenTheAnh/Desktop/VNH/web/quiz.jsp</file>
+            <file>file:/C:/Users/NguyenTheAnh/Desktop/VNH/src/java/control/LoginControl.java</file>
             <file>file:/C:/Users/NguyenTheAnh/Desktop/VNH/web/css/quiz.css</file>
             <file>file:/C:/Users/NguyenTheAnh/Desktop/VNH/web/css/home.css</file>
-            <file>file:/C:/Users/NguyenTheAnh/Desktop/VNH/web/WEB-INF/web.xml</file>
             <file>file:/C:/Users/NguyenTheAnh/Desktop/VNH/src/java/control/UpdateScoreControl.java</file>
-            <file>file:/C:/Users/NguyenTheAnh/Desktop/VNH/web/header.jsp</file>
+            <file>file:/C:/Users/NguyenTheAnh/Desktop/VNH/web/css/paging.css</file>
+            <file>file:/C:/Users/NguyenTheAnh/Desktop/VNH/src/java/control/CategoryControl.java</file>
             <file>file:/C:/Users/NguyenTheAnh/Desktop/VNH/src/java/control/HomeControl.java</file>
         </group>
     </open-files>
